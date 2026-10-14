@@ -20,10 +20,7 @@ export function Header() {
       <div className="wrap">
         <Link href="/" className="brand" aria-label="Performance Transmission, accueil">
           <img src="/mark.svg" alt="" width={40} height={37} />
-          <span>
-            Performance Transmission
-            <small>Fiduciaire à Tolochenaz</small>
-          </span>
+          <img src="/logo-wordmark.png" alt="Performance Transmission" className="wordmark" width={1200} height={79} />
         </Link>
 
         <nav className="main-nav" aria-label="Navigation principale">

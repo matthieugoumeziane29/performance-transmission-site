@@ -8,7 +8,7 @@ export const organizationSchema = {
   name: company.legalName,
   alternateName: company.name,
   url: SITE_URL,
-  logo: `${SITE_URL}/mark.svg`,
+  logo: `${SITE_URL}/logo.png`,
   image: `${SITE_URL}/opengraph-image`,
   telephone: company.phone,
   email: company.email,

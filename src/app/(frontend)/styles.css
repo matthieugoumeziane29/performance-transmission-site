@@ -209,6 +209,17 @@ p {
   height: auto;
 }
 
+.brand img.wordmark {
+  width: auto;
+  height: 17px;
+}
+
+@media (max-width: 420px) {
+  .brand img.wordmark {
+    height: 13px;
+  }
+}
+
 .brand small {
   display: block;
   font-family: var(--body);

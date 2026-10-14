@@ -10,9 +10,9 @@ export function Footer() {
           <div>
             <p className="footer-brand">{company.legalName}</p>
             <p>
-              Fiduciaire pour indépendants, Sàrl et SA.
+              {company.street}
               <br />
-              {company.street}, {company.postalCode} {company.city}
+              {company.postalCode} {company.city}
             </p>
             <p>
               <a href={company.phoneHref}>{company.phone}</a>
