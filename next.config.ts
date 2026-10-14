@@ -8,11 +8,16 @@ const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
   images: {
-    localPatterns: [
-      {
-        pathname: '/api/media/file/**',
-      },
-    ],
+    localPatterns: [{ pathname: '/api/media/file/**' }],
+    remotePatterns: [{ protocol: 'https', hostname: 'images.unsplash.com' }],
+  },
+  poweredByHeader: false,
+  async redirects() {
+    // Anciennes ancres du site Emergent → nouvelles pages
+    return [
+      { source: '/index.html', destination: '/', permanent: true },
+      { source: '/a-propos/', destination: '/a-propos', permanent: true },
+    ]
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
@@ -20,7 +25,6 @@ const nextConfig: NextConfig = {
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
       '.mjs': ['.mts', '.mjs'],
     }
-
     return webpackConfig
   },
   turbopack: {
