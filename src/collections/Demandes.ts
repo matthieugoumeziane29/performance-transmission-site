@@ -1,6 +1,16 @@
 import { APIError, type CollectionConfig } from 'payload'
 import { company } from '../lib/site'
 
+// Limite anti-abus : 5 demandes par heure et par adresse IP.
+const hits = new Map<string, number[]>()
+const tooMany = (ip: string) => {
+  const now = Date.now()
+  const recent = (hits.get(ip) || []).filter((t) => now - t < 60 * 60 * 1000)
+  recent.push(now)
+  hits.set(ip, recent)
+  return recent.length > 5
+}
+
 // Demandes envoyées depuis le formulaire de contact.
 // Création publique (formulaire), lecture réservée aux utilisateurs connectés.
 export const Demandes: CollectionConfig = {
@@ -23,6 +33,10 @@ export const Demandes: CollectionConfig = {
         // Anti-spam : champ caché rempli = robot
         if (operation === 'create' && !req.user && data?.website) {
           throw new APIError('Demande refusée', 400)
+        }
+        if (operation === 'create' && !req.user) {
+          const ip = (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'inconnu'
+          if (tooMany(ip)) throw new APIError('Trop de demandes. Réessayez plus tard ou écrivez-nous par email.', 429)
         }
         if (data) delete data.website
         return data

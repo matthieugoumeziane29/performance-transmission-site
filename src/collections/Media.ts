@@ -19,7 +19,8 @@ export const Media: CollectionConfig = {
   upload: {
     // Sur Railway : monter un volume sur ce dossier (MEDIA_DIR), sinon les images sont perdues à chaque déploiement.
     staticDir: process.env.MEDIA_DIR || path.resolve(process.cwd(), 'media'),
-    mimeTypes: ['image/*'],
+    // Pas de SVG (peut contenir du code) : uniquement des formats photo.
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
     imageSizes: [
       { name: 'card', width: 800, height: 500, position: 'centre' },
       { name: 'wide', width: 1600, height: 900, position: 'centre' },
